@@ -10,6 +10,13 @@ using namespace std;
 Admin::Admin()
 {
 	readUsers();
+	readProcess();
+
+}
+
+void Admin::initiateAdminProcess()
+{
+	showProcessList();
 }
 
 void Admin::createUser()
@@ -75,7 +82,50 @@ void Admin::writeUsers() {
 
 }
 
-void Admin::initiateAdminProcess()
+void Admin::createProcess()
 {
-	deleteuser();
+	Process process;
+	FILE* fp = fopen("ProcessList.txt", "a");
+	cout << "Enter the name of the process\n";
+	cin >> process.name;
+	char ch = getchar();
+	cout << "Enter the time cycles required to complete the process" << endl;
+	cin >> process.completionCycles;
+	cout << "Enter the waiting cycles of the process" << endl;
+	cin >> process.waitingCycles;
+	fwrite(&process,sizeof(Process),1,fp);
+	fclose(fp);
+	readProcess();
+
+}
+
+void Admin::readProcess() 
+{
+	FILE* fp = fopen("ProcessList.txt", "rt");
+	Process process;
+	fread(&process, sizeof(Process), 1, fp);
+	while (!feof(fp))
+	{
+		fread(&process, sizeof(Process), 1, fp);
+		processList.push_back(process);
+	}
+	fclose(fp);
+	processList.erase(processList.begin()+1);
+	sizeofProcessList = processList.size();
+}
+
+void Admin::writeProcess()
+{
+	FILE* fp;
+	fp = fopen("ProcessList.txt", "wt");
+	for (auto i : processList)
+		fwrite(&i, sizeof(Process), 1, fp);
+	fclose(fp);
+}
+
+void Admin::showProcessList()
+{
+	for (int i = 0; i < sizeofProcessList; i++)
+		cout << processList[i].name << "    "  << processList[i].completionCycles << endl;
+
 }

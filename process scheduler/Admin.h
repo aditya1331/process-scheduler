@@ -7,13 +7,22 @@ using namespace std;
 
 class Admin
 {
+private:
+	vector<LoginDetails> loginDetailsList;
+	int sizeOfLoginList;
+	vector<Process> processList;
+	int sizeofProcessList;
+private:
 	void createUser();
 	void printsUsers();
 	void deleteuser();
 	void readUsers();
 	void writeUsers();
-	vector<LoginDetails> loginDetailsList;
-	int sizeOfLoginList;
+	
+	void createProcess();
+	void readProcess();
+	void writeProcess();
+	void showProcessList();
 public:
 	void initiateAdminProcess();
 	Admin();
