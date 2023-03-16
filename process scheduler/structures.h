@@ -16,7 +16,7 @@ typedef struct progress {
 	char name[30];
 	int waitingCycles,waitingCount;
 	int completionCycles;
-};
+}runningProcess;
 
 class structures
 {
