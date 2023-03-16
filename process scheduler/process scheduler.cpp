@@ -4,6 +4,7 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
 #include "Admin.h"
+#include<Windows.h>
 #include "User.h"
 using namespace std;
 
@@ -11,8 +12,8 @@ int main()
 {
     Admin* admin = new Admin;
     User* user = new User;
-    admin->initiateAdminProcess();
-    bool flag = true;
+    //admin->initiateAdminProcess();
+    //user->authenticateUser();
     /*while (flag)
     {
         cout << "Press 1 to login as Admin" << endl;
@@ -22,10 +23,17 @@ int main()
         cin >> input;
         switch (input)
         {
-        case 1:
+        case 1:admin->adminAutheniticate();break;
         case 2:user->authenticateUser();break;
         case 3:flag = false; break;
         }
     }*/
+
+    int t = 5;
+    while (t--)
+    {
+        cout << "Delay" << endl;
+        Sleep(1000);
+    }
 
 }

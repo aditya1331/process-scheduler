@@ -12,6 +12,12 @@ typedef struct process {
 	int completionCycles;
 }Process;
 
+typedef struct progress {
+	char name[30];
+	int waitingCycles,waitingCount;
+	int completionCycles;
+};
+
 class structures
 {
 };

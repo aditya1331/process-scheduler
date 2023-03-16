@@ -58,21 +58,6 @@ void Admin::createUser()
 
 }
 
-void Admin::readUsers()
-{
-	LoginDetails login;
-	FILE* fp;
-	fp = fopen("UserDetail.txt", "rt");
-	fread(&login, sizeof(LoginDetails), 1, fp);
-	while (!feof(fp))
-	{
-		fread(&login, sizeof(LoginDetails), 1, fp);
-		loginDetailsList.push_back(login);
-	}
-	sizeOfLoginList = loginDetailsList.size();
-	fclose(fp);
-}
-
 void Admin::printsUsers()
 {
 	int n = loginDetailsList.size();
@@ -130,20 +115,7 @@ void Admin::createProcess()
 
 }
 
-void Admin::readProcess() 
-{
-	FILE* fp = fopen("ProcessList.txt", "rt");
-	Process process;
-	fread(&process, sizeof(Process), 1, fp);
-	while (!feof(fp))
-	{
-		fread(&process, sizeof(Process), 1, fp);
-		processList.push_back(process);
-	}
-	fclose(fp);
-	processList.erase(processList.begin()+1);
-	sizeofProcessList = processList.size();
-}
+
 
 void Admin::writeProcess()
 {
@@ -154,12 +126,7 @@ void Admin::writeProcess()
 	fclose(fp);
 }
 
-void Admin::showProcessList()
-{
-	for (int i = 0; i < sizeofProcessList; i++)
-		cout << i+1<<"\t"<<processList[i].name<< endl;
 
-}
 
 void Admin::deleteProcess()
 {
