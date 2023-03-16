@@ -12,17 +12,22 @@ private:
 	int sizeOfLoginList;
 	vector<Process> processList;
 	int sizeofProcessList;
-private:
+	
+	int printAdminOptions();
+
 	void createUser();
 	void printsUsers();
 	void deleteuser();
 	void readUsers();
 	void writeUsers();
+	void clearAllUsers();
 	
 	void createProcess();
 	void readProcess();
 	void writeProcess();
 	void showProcessList();
+	void deleteProcess();
+	void clearAllProcess();
 public:
 	void initiateAdminProcess();
 	Admin();

@@ -11,12 +11,37 @@ Admin::Admin()
 {
 	readUsers();
 	readProcess();
-
+	
 }
 
 void Admin::initiateAdminProcess()
 {
-	showProcessList();
+	bool flag = true;
+	while (flag)
+	{		
+		switch (printAdminOptions())
+		{
+		case 1: createUser(); break;
+		case 2: deleteuser(); break;
+		case 3: createProcess(); break;
+		case 4: deleteProcess(); break;
+		default : flag = false; break;
+		}
+	}
+}
+
+int Admin::printAdminOptions()
+{
+	int adminInput;
+	cout << "Press 1 to create the user" << endl;
+	cout << "Press 2 to delete the user" << endl;
+	cout << "Press 3 to create a process" << endl;
+	cout << "Press 4 to delete a process" << endl;
+	cout << "Press 5 to clear all process" << endl;
+	cout << "Press 0 to exit" << endl;
+	cin >> adminInput;
+	return adminInput;
+
 }
 
 void Admin::createUser()
@@ -43,8 +68,6 @@ void Admin::readUsers()
 	{
 		fread(&login, sizeof(LoginDetails), 1, fp);
 		loginDetailsList.push_back(login);
-
-
 	}
 	sizeOfLoginList = loginDetailsList.size();
 	fclose(fp);
@@ -55,6 +78,14 @@ void Admin::printsUsers()
 	int n = loginDetailsList.size();
 	for (int i =0 ;i<n;i++)
 		cout <<i+1<<"\t"<< loginDetailsList[i].username  << endl;	
+}
+
+void Admin::writeUsers() {
+	FILE* fp = fopen("UserDetail.txt", "wt");
+	for (auto i : loginDetailsList)
+		fwrite(&i, sizeof(LoginDetails), 1, fp);
+	printsUsers();
+
 }
 
 void Admin::deleteuser()
@@ -74,18 +105,18 @@ void Admin::deleteuser()
 	writeUsers();
 }
 
-void Admin::writeUsers() {
-	FILE* fp = fopen("UserDetail.txt","wt");
-	for (auto i : loginDetailsList)
-		fwrite(&i, sizeof(LoginDetails), 1, fp);
-	printsUsers();
+void Admin::clearAllUsers()
+{
+	FILE* fp = fopen("UserDetail.txt", "wt");
+	fclose(fp);
+	loginDetailsList.clear();
+	sizeOfLoginList = 0;
 
 }
 
 void Admin::createProcess()
 {
-	Process process;
-	FILE* fp = fopen("ProcessList.txt", "a");
+	Process process;	
 	cout << "Enter the name of the process\n";
 	cin >> process.name;
 	char ch = getchar();
@@ -93,9 +124,9 @@ void Admin::createProcess()
 	cin >> process.completionCycles;
 	cout << "Enter the waiting cycles of the process" << endl;
 	cin >> process.waitingCycles;
-	fwrite(&process,sizeof(Process),1,fp);
-	fclose(fp);
-	readProcess();
+	processList.push_back(process);
+	sizeofProcessList = processList.size();
+	writeProcess();
 
 }
 
@@ -126,6 +157,31 @@ void Admin::writeProcess()
 void Admin::showProcessList()
 {
 	for (int i = 0; i < sizeofProcessList; i++)
-		cout << processList[i].name << "    "  << processList[i].completionCycles << endl;
+		cout << i+1<<"\t"<<processList[i].name<< endl;
 
+}
+
+void Admin::deleteProcess()
+{
+	int input;
+	cout << "Enter the process Id to be deleted" << endl;
+	while (true)
+	{
+		showProcessList();
+		cin >> input;
+		if (input <= sizeofProcessList)
+			break;
+		cout << "Process Id not in the list!! Renter the ID properly"<<endl;
+	}
+	processList.erase(processList.begin() + input - 1);
+	sizeofProcessList = processList.size();
+
+}
+
+void Admin::clearAllProcess()
+{
+	FILE* fp;
+	fp = fopen("ProcessList.txt", "wt");
+	fclose(fp);
+	processList.clear();
 }
