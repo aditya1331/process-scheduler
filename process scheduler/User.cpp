@@ -3,6 +3,7 @@
 #include <iostream>
 #include <vector>
 #include <string.h> 
+#include <list>
 #include <Windows.h>
 #include "User.h"
 
@@ -36,7 +37,44 @@ void User::authenticateUser()
 
 void User::initiateUser()
 {
+	int CPUcount,processCount;
+	cout << "Enter the number of processor" << endl;
+	cin >> CPUcount;
+	cout << "Enter the number of process" << endl;
+	cin >> processCount;
+	addProcessByUser(processCount);
+	while (!readyToRun.empty() && !stoppedProcesses.empty())
+	{
 
+	}
+	
+
+}
+
+void User::addProcessByUser(int processCount)
+{
+	processQueue temp;
+	temp.waitingCount = 0;
+	temp.cyclesCount = 0;
+
+	for (int i = 0; i < processCount; i++)
+	{
+		showProcessList();
+		int selection;
+		cout << "Enter the process ID to be done" << endl;
+		cin >> selection;
+		if (selection > sizeofProcessList)
+		{
+			i--;
+			cout << "Process ID does not exist" << endl;
+			continue;
+		}
+		strcpy(temp.name, processList[selection - 1].name);
+		temp.waitingCycles = processList[selection - 1].waitingCycles;
+		temp.completionCycles = processList[selection - 1].completionCycles;
+		readyToRun.push_back(temp);
+
+	}
 }
 
 void User::readUsers()

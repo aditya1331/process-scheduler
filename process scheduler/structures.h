@@ -1,5 +1,8 @@
 #pragma once
 #define _CRT_SECURE_NO_WARNINGS
+#include<vector>
+#include<iostream>
+using namespace std;
 typedef struct LoginDetail {
 public:
 	char username[30];
@@ -12,11 +15,14 @@ typedef struct process {
 	int completionCycles;
 }Process;
 
-typedef struct progress {
+typedef struct procressInRun {
 	char name[30];
-	int waitingCycles,waitingCount;
+	int waitingCycles;
+	int waitingCount;
 	int completionCycles;
-}runningProcess;
+	int cyclesCount;
+	vector<int> processors;
+}processQueue;
 
 class structures
 {

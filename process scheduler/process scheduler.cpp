@@ -29,11 +29,6 @@ int main()
         }
     }*/
 
-    int t = 5;
-    while (t--)
-    {
-        cout << "Delay" << endl;
-        Sleep(1000);
-    }
+    user->initiateUser();
 
 }
