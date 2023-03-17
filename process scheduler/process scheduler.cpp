@@ -12,10 +12,10 @@ int main()
 {
     Admin* admin = new Admin;
     User* user = new User;
-    admin->initiateAdminProcess();
-    Sleep(2000);
+    bool flag = true;
+    //admin->initiateAdminProcess();
     //user->authenticateUser();
-    /*while (flag)
+    while (flag)
     {
         cout << "Press 1 to login as Admin" << endl;
         cout << "Press 2 to login as User" << endl;
@@ -28,8 +28,7 @@ int main()
         case 2:user->authenticateUser();break;
         case 3:flag = false; break;
         }
-    }*/
+    }
 
-    user->initiateUser();
 
 }

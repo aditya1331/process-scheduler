@@ -11,7 +11,8 @@ using namespace std;
 
 User::User()
 {
-	
+	CPUcount = 0;
+
 }
 
 void User::authenticateUser()

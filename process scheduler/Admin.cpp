@@ -11,6 +11,19 @@ Admin::Admin()
 {	
 }
 
+void Admin::adminAutheniticate()
+{
+	char username[30], password[30];
+	cout << "Enter your username" << endl;
+	cin >> username;
+	cout << "Enter your password" << endl;
+	cin >> password;
+	if (!strcmp(username, "a") && !strcmp(password, "a"))
+		initiateAdminProcess();
+	else
+		cout << "Invalid admin username or password" << endl;
+}
+
 void Admin::initiateAdminProcess()
 {
 	readUsers();
@@ -21,9 +34,10 @@ void Admin::initiateAdminProcess()
 		switch (printAdminOptions())
 		{
 		case 1: createUser(); break;
-		case 2: deleteuser(); break;
-		case 3: createProcess(); break;
-		case 4: deleteProcess(); break;
+		case 2: printsUsers(); break;
+		case 3: deleteuser(); break;
+		case 4: createProcess(); break;
+		case 5: deleteProcess(); break;
 		default : flag = false; break;
 		}
 	}
@@ -33,10 +47,11 @@ int Admin::printAdminOptions()
 {
 	int adminInput;
 	cout << "Press 1 to create the user" << endl;
-	cout << "Press 2 to delete the user" << endl;
-	cout << "Press 3 to create a process" << endl;
-	cout << "Press 4 to delete a process" << endl;
-	cout << "Press 5 to clear all process" << endl;
+	cout << "Press 2 to see all the user" << endl;
+	cout << "Press 3 to delete the user" << endl;
+	cout << "Press 4 to create a process" << endl;
+	cout << "Press 5 to delete a process" << endl;
+	//cout << "Press 6 to clear all process" << endl;
 	cout << "Press 0 to exit" << endl;
 	cin >> adminInput;
 	return adminInput;
@@ -61,7 +76,7 @@ void Admin::printsUsers()
 {
 	int n = loginDetailsList.size();
 	for (int i =0 ;i<n;i++)
-		cout <<i+1<<"\t"<< loginDetailsList[i].username  << endl;	
+		cout <<i+1<<"\t"<< loginDetailsList[i].username<<"\t"<<loginDetailsList[i].password  << endl;	
 }
 
 void Admin::writeUsers() {

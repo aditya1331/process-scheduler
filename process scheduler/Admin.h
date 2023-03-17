@@ -9,7 +9,7 @@ using namespace std;
 class Admin:private User{
 private:	 
 
-	void adminAutheniticate();
+	
 	int printAdminOptions();
 
 
@@ -26,6 +26,7 @@ private:
 	void deleteProcess();
 	void clearAllProcess();
 public:
+	void adminAutheniticate();
 	void initiateAdminProcess();
 	Admin();
 
