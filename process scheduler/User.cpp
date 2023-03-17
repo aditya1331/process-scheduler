@@ -11,8 +11,7 @@ using namespace std;
 
 User::User()
 {
-	readUsers();
-	readProcess();	
+	
 }
 
 void User::authenticateUser()
@@ -37,6 +36,8 @@ void User::authenticateUser()
 
 void User::initiateUser()
 {
+	readUsers();
+	readProcess();
 	cout << "Enter the number of processor" << endl;
 	cin >> CPUcount;
 	cout << "Enter the number of process" << endl;
@@ -144,11 +145,13 @@ void User::readUsers()
 
 void User::readProcess()
 {
-	FILE* fp = fopen("ProcessList.txt", "rt");
+	FILE* fp = fopen("ProcessList.txt", "r");
 	Process process;
-	fread(&process, sizeof(Process), 1, fp);
+	//fread(&process, sizeof(Process), 1, fp);
+	//processList.push_back(process);
 	while (!feof(fp))
 	{
+		
 		fread(&process, sizeof(Process), 1, fp);
 		processList.push_back(process);
 	}

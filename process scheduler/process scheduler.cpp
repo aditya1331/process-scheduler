@@ -13,6 +13,7 @@ int main()
     Admin* admin = new Admin;
     User* user = new User;
     admin->initiateAdminProcess();
+    Sleep(2000);
     //user->authenticateUser();
     /*while (flag)
     {

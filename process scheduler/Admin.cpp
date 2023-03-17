@@ -13,6 +13,8 @@ Admin::Admin()
 
 void Admin::initiateAdminProcess()
 {
+	readUsers();
+	readProcess();
 	bool flag = true;
 	while (flag)
 	{		
@@ -112,8 +114,6 @@ void Admin::createProcess()
 
 }
 
-
-
 void Admin::writeProcess()
 {
 	FILE* fp;
@@ -123,8 +123,6 @@ void Admin::writeProcess()
 	fclose(fp);
 }
 
-
-
 void Admin::deleteProcess()
 {
 	int input;
@@ -132,12 +130,19 @@ void Admin::deleteProcess()
 	while (true)
 	{
 		showProcessList();
+		cout << "Press 0 to cancel deletion" << endl;
 		cin >> input;
-		if (input <= sizeofProcessList)
+		if (input <= sizeofProcessList &&input!=0)
+		{
+			processList.erase(processList.begin() + input - 1);
 			break;
-		cout << "Process Id not in the list!! Renter the ID properly"<<endl;
+		}
+		cout << "Process Id not in the list!! Renter the ID properly" << endl;
+		if (input == 0)
+			break;
+		
 	}
-	processList.erase(processList.begin() + input - 1);
+	
 	sizeofProcessList = processList.size();
 
 }
