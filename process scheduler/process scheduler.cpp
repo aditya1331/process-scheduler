@@ -3,6 +3,7 @@
 
 #define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
+#include<conio.h>
 #include "Admin.h"
 #include<Windows.h>
 #include "User.h"
@@ -15,7 +16,8 @@ int main()
     bool flag = true;
     //admin->initiateAdminProcess();
     //user->authenticateUser();
-    while (flag)
+   user->initiateUser();
+    /*while (flag)
     {
         cout << "Press 1 to login as Admin" << endl;
         cout << "Press 2 to login as User" << endl;
@@ -28,7 +30,6 @@ int main()
         case 2:user->authenticateUser();break;
         default :flag = false; break;
         }
-    }
-
-
+    }*/
+    
 }
