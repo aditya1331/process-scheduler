@@ -60,15 +60,14 @@ int Admin::printAdminOptions()
 
 void Admin::createUser()
 {
-	FILE* fp;
-	fp = fopen("UserDetail.txt", "a");
+	
 	cout << "Enter the user name of the user\n";
 	LoginDetails LD ;
 	cin >> LD.username;
 	cout << "Enter the password of the user\n";
 	cin >> LD.password;	
-	fwrite(&LD, sizeof(LoginDetails), 1, fp);
-	fclose(fp);
+	loginDetailsList.push_back(LD);
+	writeUsers();
 
 }
 
@@ -83,7 +82,7 @@ void Admin::writeUsers() {
 	FILE* fp = fopen("UserDetail.txt", "wt");
 	for (auto i : loginDetailsList)
 		fwrite(&i, sizeof(LoginDetails), 1, fp);
-	printsUsers();
+	fclose(fp);
 
 }
 

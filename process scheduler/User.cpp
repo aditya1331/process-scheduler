@@ -12,33 +12,39 @@ using namespace std;
 User::User()
 {
 	CPUcount = 0;
-
 }
 
 void User::authenticateUser()
 {
+	readUsers();
+	readProcess();
 	char username[30],password[30];
 	cout << "Enter your username" << endl;
 	cin >> username;
 	cout << "Enter your password" << endl;
 	cin >> password;
-	for (auto i : loginDetailsList)
-	{
-		if (!strcmp(i.username, username) && !strcmp(i.password, password))
+	bool flag = true;
+	while (flag) {
+		for (auto i : loginDetailsList)
 		{
-			initiateUser();
-			break;
+			if (!strcmp(i.username, username) && !strcmp(i.password, password))
+			{
+				initiateUser();
+				break;
+			}			
 		}
 		cout << "Invalid username or password!!!" << endl << "Renter the password" << endl;
-		cin >> username >> password;
+		
+		cin >> username;
+		cin >> password;
+
 	}
 
 }
 
 void User::initiateUser()
 {
-	readUsers();
-	readProcess();
+	
 	cout << "Enter the number of processor" << endl;
 	cin >> CPUcount;
 	cout << "Enter the number of process" << endl;
@@ -108,7 +114,7 @@ void User::randomStatusAssignment()
 	int randInt;
 	for (int i = 0; i < processCount; i++)
 	{
-		randInt = 1 + (rand() % 5);
+		randInt = 1 + (rand() % 100);
 		if (!strcmp(readyToRun[i].status,yetToRun) || !strcmp(readyToRun[i].status, running))
 		{
 			if (randInt == 1)
@@ -126,6 +132,9 @@ bool User::processCompletionCheck()
 	for (auto i : readyToRun)
 		if (strcmp(i.status, completed))
 			return true;
+		else
+			cout << i.name << endl;
+	cout << endl;
 	return false;
 }
 
@@ -133,8 +142,8 @@ void User::readUsers()
 {
 	LoginDetails login;
 	FILE* fp;
-	fp = fopen("UserDetail.txt", "rt");
-	fread(&login, sizeof(LoginDetails), 1, fp);
+	fp = fopen("UserDetail.txt", "r");
+	//fread(&login, sizeof(LoginDetails), 1, fp);
 	while (!feof(fp))
 	{
 		fread(&login, sizeof(LoginDetails), 1, fp);

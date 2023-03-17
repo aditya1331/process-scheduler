@@ -26,7 +26,7 @@ int main()
         {
         case 1:admin->adminAutheniticate();break;
         case 2:user->authenticateUser();break;
-        case 3:flag = false; break;
+        default :flag = false; break;
         }
     }
 
