@@ -26,6 +26,7 @@ class User
 	void readUsers();
 	void waitingTimeReduction();
 	void randomStatusAssignment();
+	void restartProcess();
 	bool processCompletionCheck();
 	void showProcessList();
 	void readProcess();

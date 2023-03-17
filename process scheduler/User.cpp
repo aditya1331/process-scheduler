@@ -2,6 +2,7 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
 #include <vector>
+#include <conio.h>
 #include <string.h> 
 #include <list>
 #include <Windows.h>
@@ -62,13 +63,21 @@ void User::initiateUser()
 				strcpy(readyToRun[i].status, running);
 				readyToRun[i].completionCycles--;
 				if (readyToRun[i].completionCycles == 0)
+				{
 					strcpy(readyToRun[i].status, completed);
+					cout << readyToRun[i].name << " completed" << endl;
+				}
 				readytoRuncount--;
 			}
 		}
 		Sleep(1000);
 		waitingTimeReduction();
 		randomStatusAssignment();
+		if (_kbhit()) {
+			char ch = _getch();
+			if (int(ch) == 83)
+				restartProcess();
+		}
 		flag = processCompletionCheck();
 	}
 
@@ -127,14 +136,24 @@ void User::randomStatusAssignment()
 	}
 }
 
+void User::restartProcess()
+{
+	cout << "Press 1 to start the process and 0 to skip for now" << endl;
+	for(auto i : readyToRun)
+		if (!strcmp(i.status, stopped))
+		{
+			int input;
+			cin >> input;
+			if (input)
+				strcpy(i.status, yetToRun);
+		}
+}
+
 bool User::processCompletionCheck()
 {
 	for (auto i : readyToRun)
 		if (strcmp(i.status, completed))
 			return true;
-		else
-			cout << i.name << endl;
-	cout << endl;
 	return false;
 }
 
