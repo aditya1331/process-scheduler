@@ -12,7 +12,7 @@ using namespace std;
 User::User()
 {
 	readUsers();
-	readProcess();
+	readProcess();	
 }
 
 void User::authenticateUser()
@@ -37,25 +37,42 @@ void User::authenticateUser()
 
 void User::initiateUser()
 {
-	int CPUcount,processCount;
 	cout << "Enter the number of processor" << endl;
 	cin >> CPUcount;
 	cout << "Enter the number of process" << endl;
 	cin >> processCount;
-	addProcessByUser(processCount);
-	while (!readyToRun.empty() && !stoppedProcesses.empty())
+	CPUcount = min(CPUcount, processCount);
+	addProcessByUser();
+	bool flag = true;
+	while (flag)
 	{
-
+		int readytoRuncount = CPUcount;
+		for (int i = 0; i < processCount && readytoRuncount; i++)
+		{
+			if (!strcmp(readyToRun[i].status, yetToRun))
+			{
+				strcpy(readyToRun[i].status, running);
+				readyToRun[i].completionCycles--;
+				if (readyToRun[i].completionCycles == 0)
+					strcpy(readyToRun[i].status, completed);
+				readytoRuncount--;
+			}
+		}
+		Sleep(1000);
+		waitingTimeReduction();
+		randomStatusAssignment();
+		flag = processCompletionCheck();
 	}
-	
+
 
 }
 
-void User::addProcessByUser(int processCount)
+void User::addProcessByUser()
 {
 	processQueue temp;
 	temp.waitingCount = 0;
 	temp.cyclesCount = 0;
+	strcpy(temp.status, yetToRun);
 
 	for (int i = 0; i < processCount; i++)
 	{
@@ -75,6 +92,39 @@ void User::addProcessByUser(int processCount)
 		readyToRun.push_back(temp);
 
 	}
+}
+
+void User::waitingTimeReduction()
+{
+	for (int i = 0; i < processCount; i++)
+		if (!strcmp(readyToRun[i].status, waiting))
+			readyToRun[i].waitingCount--;
+}
+
+void User::randomStatusAssignment()
+{
+	int randInt;
+	for (int i = 0; i < processCount; i++)
+	{
+		randInt = 1 + (rand() % 5);
+		if (!strcmp(readyToRun[i].status,yetToRun) || !strcmp(readyToRun[i].status, running))
+		{
+			if (randInt == 1)
+				strcpy(readyToRun[i].status, stopped);
+			else if(randInt==2)
+				strcpy(readyToRun[i].status, waiting);
+			else
+				strcpy(readyToRun[i].status, yetToRun);
+		}
+	}
+}
+
+bool User::processCompletionCheck()
+{
+	for (auto i : readyToRun)
+		if (strcmp(i.status, completed))
+			return true;
+	return false;
 }
 
 void User::readUsers()

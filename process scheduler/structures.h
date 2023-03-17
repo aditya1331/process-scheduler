@@ -17,6 +17,7 @@ typedef struct process {
 
 typedef struct procressInRun {
 	char name[30];
+	char status[30];
 	int waitingCycles;
 	int waitingCount;
 	int completionCycles;

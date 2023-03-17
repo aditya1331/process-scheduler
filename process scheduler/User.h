@@ -9,19 +9,24 @@ using namespace std;
 
 class User
 {protected:
-	list<processQueue> readyToRun;
-	list<processQueue> runningProcesses;
-	list<processQueue> waitingProcesses;
-	list<processQueue> completedProcesses;
-	list<processQueue> stoppedProcesses;
-		
+	vector<processQueue> readyToRun;
 	vector<LoginDetails> loginDetailsList;
 	int sizeOfLoginList;
 	vector<Process> processList;
+	int CPUcount;
+	int processCount;
 	int sizeofProcessList;
+	const char* yetToRun = "Ready to Run";
+	const char* stopped = "Stopped";
+	const char* waiting = "Waiting";
+	const char* running  = "Running";
+	const char* completed = "Completed";
 
-	void addProcessByUser(int);
+	void addProcessByUser();
 	void readUsers();
+	void waitingTimeReduction();
+	void randomStatusAssignment();
+	bool processCompletionCheck();
 	void showProcessList();
 	void readProcess();
 	

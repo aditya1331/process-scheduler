@@ -8,10 +8,7 @@
 using namespace std;
 
 Admin::Admin()
-{
-	readUsers();
-	readProcess();
-	
+{	
 }
 
 void Admin::initiateAdminProcess()

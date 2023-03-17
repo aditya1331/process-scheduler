@@ -12,7 +12,7 @@ int main()
 {
     Admin* admin = new Admin;
     User* user = new User;
-    //admin->initiateAdminProcess();
+    admin->initiateAdminProcess();
     //user->authenticateUser();
     /*while (flag)
     {
