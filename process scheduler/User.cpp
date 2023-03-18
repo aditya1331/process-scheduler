@@ -17,40 +17,40 @@ User::User()
 
 void User::authenticateUser()
 {
-	readUsers();
 	readProcess();
+	readUsers();
 	char username[30],password[30];
-	cout << "Enter your username" << endl;
-	cin >> username;
-	cout << "Enter your password" << endl;
-	cin >> password;
 	bool flag = true;
 	while (flag) {
-		for (auto i : loginDetailsList)
+		cout << "Enter your username" << endl;
+		cin >> username;
+		cout << "Enter your password" << endl;
+		cin >> password;
+		for (int i =0;i<sizeOfLoginList;i++)
 		{
-			if (!strcmp(i.username, username) && !strcmp(i.password, password))
+			if (!strcmp(loginDetailsList[i].username, username) && !strcmp(loginDetailsList[i].password, password))
 			{
+				cout << "Logged in as " << loginDetailsList[i].username << endl;
 				initiateUser();
+				flag = false;
 				break;
 			}			
+			
 		}
 		cout << "Invalid username or password!!!" << endl << "Renter the password" << endl;
-		
-		cin >> username;
-		cin >> password;
-
 	}
 
 }
 
 void User::initiateUser()
 {
-	
+
+	readUsers();
+	readProcess();
 	cout << "Enter the number of processor" << endl;
 	cin >> CPUcount;
 	cout << "Enter the number of process" << endl;
 	cin >> processCount;
-	CPUcount = min(CPUcount, processCount);
 	addProcessByUser();
 	bool flag = true;
 	while (flag)
@@ -74,8 +74,9 @@ void User::initiateUser()
 		waitingTimeReduction();
 		randomStatusAssignment();
 		if (_kbhit()) {
-			char ch = _getch();
-			if (int(ch) == 83)
+			char ch[1];
+			cin >> ch;
+			if (!strcmp(ch,"s"))
 				restartProcess();
 		}
 		flag = processCompletionCheck();
@@ -107,8 +108,11 @@ void User::addProcessByUser()
 		temp.waitingCycles = processList[selection - 1].waitingCycles;
 		temp.completionCycles = processList[selection - 1].completionCycles;
 		readyToRun.push_back(temp);
-
 	}
+	cout << "Process selected are :" << endl;
+	for (auto i : readyToRun)
+		cout << i.name << endl;
+	cout << endl;
 }
 
 void User::waitingTimeReduction()
@@ -126,12 +130,12 @@ void User::randomStatusAssignment()
 		randInt = 1 + (rand() % 100);
 		if (!strcmp(readyToRun[i].status,yetToRun) || !strcmp(readyToRun[i].status, running))
 		{
-			if (randInt == 1)
-				strcpy(readyToRun[i].status, stopped);
-			else if(randInt==2)
-				strcpy(readyToRun[i].status, waiting);
-			else
-				strcpy(readyToRun[i].status, yetToRun);
+			switch (randInt)
+			{
+			case 1: strcpy(readyToRun[i].status, stopped); break;
+			case 2: strcpy(readyToRun[i].status, waiting); break;
+			default: strcpy(readyToRun[i].status, yetToRun); break;
+			}
 		}
 	}
 }
@@ -139,13 +143,15 @@ void User::randomStatusAssignment()
 void User::restartProcess()
 {
 	cout << "Press 1 to start the process and 0 to skip for now" << endl;
-	for(auto i : readyToRun)
-		if (!strcmp(i.status, stopped))
+	for (int i = 0; i < processCount; i++)
+		if (!strcmp(readyToRun[i].status, stopped))
 		{
+			cout << readyToRun[i].name << " stopped " << readyToRun[i].completionCycles << endl;
 			int input;
 			cin >> input;
 			if (input)
-				strcpy(i.status, yetToRun);
+				strcpy(readyToRun[i].status, yetToRun);
+			cout << readyToRun[i].name << " Status changed to " << readyToRun[i].status << endl;
 		}
 }
 
