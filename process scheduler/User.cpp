@@ -50,6 +50,7 @@ void User::initiateUser()
 	cout << "Enter the number of process" << endl;
 	cin >> processCount;
 	addProcessByUser();
+	cout << "Type 'stop' to see process which are stopped" << endl;
 	bool flag = true;
 	while (flag)
 	{
@@ -79,7 +80,7 @@ void User::initiateUser()
 		}
 		flag = processCompletionCheck();
 	}
-	cout << "\nAll processes are successfully completed\n";
+	cout << "\nAll processes are successfully completed\n" << endl;;
 	processLog();
 
 }
@@ -89,7 +90,8 @@ void User::processLog()
 	cout << "Process log : \n";
 	cout << "Process Name\t Time taken" << endl;
 	for (int i = 0; i < processCount; i++)
-		cout << readyToRun[i].name << "\t" << readyToRun[i].timeCount << endl;;
+		cout << readyToRun[i].name << "\t" << readyToRun[i].timeCount << endl;
+	cout << endl;
 }
 
 void User::addProcessByUser()
@@ -129,7 +131,8 @@ void User::waitingTimeReduction()
 	{
 		if (!strcmp(readyToRun[i].status, waiting))
 			readyToRun[i].waitingCount--;
-		readyToRun[i].timeCount++; // Counting the time taken to extcute the process
+		if(strcmp(readyToRun[i].status,completed))
+			readyToRun[i].timeCount++; // Counting the time taken to extcute the process
 	}
 
 }

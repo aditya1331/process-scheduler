@@ -3,6 +3,7 @@
 #include<vector>
 #include<iostream>
 using namespace std;
+
 typedef struct LoginDetail {
 public:
 	char username[30];

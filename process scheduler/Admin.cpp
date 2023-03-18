@@ -37,10 +37,14 @@ void Admin::initiateAdminProcess()
 		case 2: printsUsers(); break;
 		case 3: deleteuser(); break;
 		case 4: createProcess(); break;
-		case 5: deleteProcess(); break;
+
+		case 5:showProcessList(); break;
+		case 6: deleteProcess(); break;
 		default : flag = false; break;
 		}
 	}
+	loginDetailsList.clear();
+	processList.clear();
 }
 
 int Admin::printAdminOptions()
@@ -50,8 +54,8 @@ int Admin::printAdminOptions()
 	cout << "Press 2 to see all the user" << endl;
 	cout << "Press 3 to delete the user" << endl;
 	cout << "Press 4 to create a process" << endl;
-	cout << "Press 5 to delete a process" << endl;
-	//cout << "Press 6 to clear all process" << endl;
+	cout << "Press 5 to see all process" << endl;
+	cout << "Press 6 to delete a process" << endl;
 	cout << "Press 0 to exit" << endl;
 	cin >> adminInput;
 	return adminInput;
@@ -149,5 +153,6 @@ void Admin::deleteProcess()
 	}
 	
 	sizeofProcessList = processList.size();
+	writeProcess();
 
 }
