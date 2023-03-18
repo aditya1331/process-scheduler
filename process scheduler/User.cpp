@@ -34,10 +34,13 @@ void User::authenticateUser()
 				initiateUser();
 				flag = false;
 				break;
-			}			
+			}	
+			
 			
 		}
-		cout << "Invalid username or password!!!" << endl << "Renter the password" << endl;
+		if (flag)
+			cout << "Invalid username or password!!!" << endl << "Renter the password" << endl;
+		
 	}
 
 }
@@ -45,8 +48,6 @@ void User::authenticateUser()
 void User::initiateUser()
 {
 
-	readUsers();
-	readProcess();
 	cout << "Enter the number of processor" << endl;
 	cin >> CPUcount;
 	cout << "Enter the number of process" << endl;
@@ -65,7 +66,7 @@ void User::initiateUser()
 				if (readyToRun[i].completionCycles == 0)
 				{
 					strcpy(readyToRun[i].status, completed);
-					cout << readyToRun[i].name << " completed" << endl;
+					cout << readyToRun[i].name << " completed" << endl<<endl;
 				}
 				readytoRuncount--;
 			}
@@ -74,9 +75,9 @@ void User::initiateUser()
 		waitingTimeReduction();
 		randomStatusAssignment();
 		if (_kbhit()) {
-			char ch[1];
+			char ch[5];
 			cin >> ch;
-			if (!strcmp(ch,"s"))
+			if (!strcmp(ch,"stop"))
 				restartProcess();
 		}
 		flag = processCompletionCheck();
@@ -151,7 +152,7 @@ void User::restartProcess()
 			cin >> input;
 			if (input)
 				strcpy(readyToRun[i].status, yetToRun);
-			cout << readyToRun[i].name << " Status changed to " << readyToRun[i].status << endl;
+			cout << readyToRun[i].name << " Status changed to " << readyToRun[i].status << endl<<endl;
 		}
 }
 
