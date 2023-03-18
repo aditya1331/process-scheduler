@@ -130,7 +130,7 @@ void User::randomStatusAssignment()
 	int randInt;
 	for (int i = 0; i < processCount; i++)
 	{
-		randInt = 1 + (rand() % 100);
+		randInt = 1 + (rand() % 10);
 		if (!strcmp(readyToRun[i].status,yetToRun) || !strcmp(readyToRun[i].status, running))		
 			switch (randInt)
 			{
