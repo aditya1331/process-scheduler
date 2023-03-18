@@ -34,13 +34,10 @@ void User::authenticateUser()
 				initiateUser();
 				flag = false;
 				break;
-			}	
-			
-			
+			}			
 		}
 		if (flag)
-			cout << "Invalid username or password!!!" << endl << "Renter the password" << endl;
-		
+			cout << "Invalid username or password!!!" << endl << "Renter the password" << endl;		
 	}
 
 }
@@ -66,7 +63,7 @@ void User::initiateUser()
 				if (readyToRun[i].completionCycles == 0)
 				{
 					strcpy(readyToRun[i].status, completed);
-					cout << readyToRun[i].name << " completed" << endl<<endl;
+					cout << readyToRun[i].name << " completed" << endl << endl;
 				}
 				readytoRuncount--;
 			}
@@ -75,15 +72,24 @@ void User::initiateUser()
 		waitingTimeReduction();
 		randomStatusAssignment();
 		if (_kbhit()) {
-			char ch[5];
+			char ch[10];
 			cin >> ch;
 			if (!strcmp(ch,"stop"))
 				restartProcess();
 		}
 		flag = processCompletionCheck();
 	}
+	cout << "\nAll processes are successfully completed\n";
+	processLog();
 
+}
 
+void User::processLog()
+{
+	cout << "Process log : \n";
+	cout << "Process Name\t Time taken" << endl;
+	for (int i = 0; i < processCount; i++)
+		cout << readyToRun[i].name << "\t" << readyToRun[i].timeCount << endl;;
 }
 
 void User::addProcessByUser()
@@ -91,6 +97,7 @@ void User::addProcessByUser()
 	processQueue temp;
 	temp.waitingCount = 0;
 	temp.cyclesCount = 0;
+	temp.timeCount = 0;
 	strcpy(temp.status, yetToRun);
 
 	for (int i = 0; i < processCount; i++)
@@ -119,8 +126,12 @@ void User::addProcessByUser()
 void User::waitingTimeReduction()
 {
 	for (int i = 0; i < processCount; i++)
+	{
 		if (!strcmp(readyToRun[i].status, waiting))
 			readyToRun[i].waitingCount--;
+		readyToRun[i].timeCount++; // Counting the time taken to extcute the process
+	}
+
 }
 
 void User::randomStatusAssignment()
@@ -183,7 +194,7 @@ void User::readProcess()
 {
 	FILE* fp = fopen("ProcessList.txt", "r");
 	Process process;
-	//fread(&process, sizeof(Process), 1, fp);
+	//fread(&process, sizeof(Process), 1, fpa);
 	//processList.push_back(process);
 	while (!feof(fp))
 	{
@@ -192,7 +203,7 @@ void User::readProcess()
 		processList.push_back(process);
 	}
 	fclose(fp);
-	processList.erase(processList.begin() + 1);
+	processList.erase(processList.end()-1);
 	sizeofProcessList = processList.size();
 }
 

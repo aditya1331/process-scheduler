@@ -22,15 +22,16 @@ class User
 	const char* running  = "Running";
 	const char* completed = "Completed";
 
-	void addProcessByUser();
 	void readUsers();
+	void readProcess();
+	void showProcessList();
+	
+	void addProcessByUser();	
 	void waitingTimeReduction();
 	void randomStatusAssignment();
 	void restartProcess();
 	bool processCompletionCheck();
-	void showProcessList();
-	void readProcess();
-	
+	void processLog();	
 
 public:	
 	User();

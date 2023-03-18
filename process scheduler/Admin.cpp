@@ -103,15 +103,6 @@ void Admin::deleteuser()
 	writeUsers();
 }
 
-void Admin::clearAllUsers()
-{
-	FILE* fp = fopen("UserDetail.txt", "wt");
-	fclose(fp);
-	loginDetailsList.clear();
-	sizeOfLoginList = 0;
-
-}
-
 void Admin::createProcess()
 {
 	Process process;	
@@ -159,12 +150,4 @@ void Admin::deleteProcess()
 	
 	sizeofProcessList = processList.size();
 
-}
-
-void Admin::clearAllProcess()
-{
-	FILE* fp;
-	fp = fopen("ProcessList.txt", "wt");
-	fclose(fp);
-	processList.clear();
 }

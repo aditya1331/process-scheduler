@@ -7,24 +7,17 @@
 using namespace std;
 
 class Admin:private User{
-private:	 
-
-	
+private:	 	
 	int printAdminOptions();
 
-
 	void createUser();
+	void writeUsers();
 	void printsUsers();
 	void deleteuser();
-	void writeUsers();
-	void clearAllUsers();
 	
 	void createProcess();
-
-	void writeProcess();
-	
+	void writeProcess();	
 	void deleteProcess();
-	void clearAllProcess();
 public:
 	void adminAutheniticate();
 	void initiateAdminProcess();

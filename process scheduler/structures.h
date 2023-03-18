@@ -22,7 +22,7 @@ typedef struct procressInRun {
 	int waitingCount;
 	int completionCycles;
 	int cyclesCount;
-	vector<int> processors;
+	int timeCount;
 }processQueue;
 
 class structures
