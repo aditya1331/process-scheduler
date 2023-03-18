@@ -7,9 +7,6 @@
 
 using namespace std;
 
-Admin::Admin()
-{	
-}
 
 void Admin::adminAutheniticate()
 {

@@ -13,8 +13,6 @@ int main()
     Admin* admin = new Admin;
     User* user = new User;
     bool flag = true;
-    //admin->initiateAdminProcess();
-    //user->authenticateUser();
     while (flag)
     {
         cout << "Press 1 to login as Admin" << endl;
@@ -29,6 +27,4 @@ int main()
         default :flag = false; break;
         }
     }
-
-
 }

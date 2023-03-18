@@ -22,6 +22,7 @@ class User
 	const char* running  = "Running";
 	const char* completed = "Completed";
 
+	void initiateUser();
 	void readUsers();
 	void readProcess();
 	void showProcessList();
@@ -36,7 +37,7 @@ class User
 public:	
 	User();
 	void authenticateUser();
-	void initiateUser();
+
 
 };
 
